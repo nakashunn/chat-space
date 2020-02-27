@@ -2,38 +2,43 @@
   .main-chat__group-info
     .main-chat__group-info__left
       %h2.main-chat__group-info__left__current-group
-        aaaaaa
+        =@group.name
       %ul.main-chat__group-info__left__member-list
         Member :
         %li.main-chat__group-info__left__member-list__user
-          wwwww
+          - @users.each do |user|
+            = user.name
     
-    .main-chat__group-info__right
-      = link_to "Edit", "#"  
+    .main-chat__group-info__right 
+      = link_to "Edit", edit_group_path(params[:group_id]), method: :get  
   .main-chat__message-list
-    .message
-      .message__info
-        %p.message__info__title
-          wwwww
-        %p.message__info__date
-          2020/02/24
-      %p.message__text
-        aaaaaa
-    .message
-      .message__info
-        %p.message__info__title
-          wwwww
-        %p.message__info__date
-          2020/02/24
-      %p.message__text
-        aaaaaa
+    .messages
+      = render @messages
   .main-chat__message-form
     .new_message
-      %form
-        %input(type="text"placeholder="type a message"class="text")
-        %label.input-box__image
-          = icon('fas', 'image')
-          %input{type: "file"}
-        %input(type="button" value="Send"class="button")/
+      .form
+        = form_for [@group, @message] do |f|
+          = f.text_field :content, class: 'text', placeholder: 'type a message'
+          .form__mask
+            = f.label :image, class: 'input-box__image' do
+              = icon('fas', 'image', class: 'icon')
+              = f.file_field :image, class: 'hidden'
+          = f.submit 'Send', class: 'button'
 
- 
+-# .main-chat__message-list
+-#     .message
+-#       .message__info
+-#         %p.message__info__title
+-#           wwwww
+-#         %p.message__info__date
+-#           2020/02/24
+-#       %p.message__text
+-#         aaaaaa
+-#     .message
+-#       .message__info
+-#         %p.message__info__title
+-#           wwwww
+-#         %p.message__info__date
+-#           2020/02/24
+-#       %p.message__text
+-#         aaaaaa
