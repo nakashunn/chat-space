@@ -51,6 +51,9 @@
       .group{
         height: 70px;
         width: 260px;
+        a{
+          text-decoration: none;
+        }
         .group__name{
           font-size: 15px;
           margin-bottom: 5px;
